@@ -30,10 +30,10 @@ SquareEvent.signing_secret   = Rails.application.credentials.square[Rails.env][:
 SquareEvent.notification_url = Rails.application.credentials.square[Rails.env][:webhook_url]
 
 SquareEvent.configure do |events|
-  events.subscribe 'charge.failed' do |event|
+  events.subscribe 'payment.created' do |event|
     # Define subscriber behavior based on the event object
     event.class       #=> SquareEvent::Event
-    event.type        #=> "charge.failed"
+    event.type        #=> "payment.created"
     event.data        #=> data": { "type": "payment", "id": "KkAkhdMs...
   end
 
