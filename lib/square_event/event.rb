@@ -2,6 +2,17 @@ module SquareEvent
   class Event
     attr_reader :type, :merchant_id, :event_id, :data, :payload, :environment, :initial_delivery_timestamp
 
+    def to_h
+      {
+        type: type,
+        merchant_id: merchant_id,
+        event_id: event_id,
+        data: data,
+        environment: environment,
+        initial_delivery_timestamp: initial_delivery_timestamp
+      }
+    end
+
     def self.construct_from(payload, environment, timestamp)
       type        = payload[:type]
       merchant_id = payload[:merchant_id]
