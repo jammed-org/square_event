@@ -29,6 +29,15 @@ module SquareEvent
       @data = data
       @environment = environment
       @initial_delivery_timestamp = timestamp
+      @internal_hash = {}
+    end
+
+    def [](key)
+      @internal_hash[key]
+    end
+
+    def []=(key, value)
+      @internal_hash[key] = value
     end
 
     def livemode

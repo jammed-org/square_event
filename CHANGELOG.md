@@ -1,5 +1,9 @@
 ## Changelog
 
+### 1.0.2
+
+- Added []= methods to support Sentry
+
 ### 1.0.1
 
 - Added a #to_h method to Event object, allowing for easier serialization
