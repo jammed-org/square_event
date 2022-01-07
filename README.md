@@ -1,11 +1,5 @@
 # SquareEvent
 
-<!-- [![Build Status](https://secure.travis-ci.org/jammed-org/square_event.svg)](http://travis-ci.org/integrallis/stripe_event)
-[![Gem Version](https://badge.fury.io/rb/stripe_event.svg)](http://badge.fury.io/rb/stripe_event)
-[![Code Climate](https://codeclimate.com/github/integrallis/stripe_event.svg)](https://codeclimate.com/github/integrallis/stripe_event)
-[![Coverage Status](https://coveralls.io/repos/integrallis/stripe_event/badge.svg)](https://coveralls.io/r/integrallis/stripe_event)
-[![Gem Downloads](https://img.shields.io/gem/dt/stripe_event.svg)](https://rubygems.org/gems/stripe_event) -->
-
 SquareEvent is built on the [ActiveSupport::Notifications API](http://api.rubyonrails.org/classes/ActiveSupport/Notifications.html). Incoming webhook requests are [authenticated with the webhook signature](#authenticating-webhooks-with-signatures). Define subscribers to handle specific event types. Subscribers can be a block or an object that responds to `#call`.
 
 The gem is based on the excellent [Stripe Event](https://github.com/integrallis/stripe_event) work from Integrallis Software, it has been adapted and re-written to work with Square webhooks.
@@ -25,7 +19,7 @@ mount SquareEvent::Engine, at: '/my-chosen-path' # provide a custom path
 ## Usage
 
 ```ruby
-# config/initializers/stripe.rb
+# config/initializers/square_event.rb
 SquareEvent.signing_secret   = Rails.application.credentials.square[Rails.env][:webhook_secret]
 SquareEvent.notification_url = Rails.application.credentials.square[Rails.env][:webhook_url]
 
@@ -109,7 +103,7 @@ SquareEvent can be used outside of Rails applications as well. Here is a basic S
 ```ruby
 require 'json'
 require 'sinatra'
-require 'stripe_event'
+require 'square_event'
 
 SquareEvent.signing_secret   = ENV['SQUARE_SIGNING_SECRET']
 SquareEvent.notification_url = ENV['SQUARE_NOTIFICATION_URL']
@@ -127,9 +121,9 @@ end
 
 ## Testing
 
-Handling webhooks is a critical piece of modern billing systems. Verifying the behavior of SquareEvent subscribers can be done fairly easily by stubbing out the HTTP signature header used to authenticate the webhook request. Tools like [Webmock](https://github.com/bblimke/webmock) and [VCR](https://github.com/vcr/vcr) work well. [RequestBin](https://requestbin.com/) is great for collecting the payloads. For exploratory phases of development, [UltraHook](http://www.ultrahook.com/) and other tools can forward webhook requests directly to localhost. 
+Handling webhooks is a critical piece of modern billing systems. Verifying the behavior of SquareEvent subscribers can be done fairly easily by stubbing out the HTTP signature header used to authenticate the webhook request. Tools like [Webmock](https://github.com/bblimke/webmock) and [VCR](https://github.com/vcr/vcr) work well. [RequestBin](https://requestbin.com/) is great for collecting the payloads. For exploratory phases of development, [UltraHook](http://www.ultrahook.com/) and other tools can forward webhook requests directly to localhost.
 
-The Square ruby library does not currently offer an `Event` object to use to create or refer to webhook with, so their testing in Ruby is harder than with Stripe. 
+The Square ruby library does not currently offer an `Event` object to use to create or refer to webhook with, so their testing in Ruby is harder than with Stripe.
 
 ### Maintainers
 
